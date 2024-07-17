@@ -56,7 +56,7 @@ namespace OCRFiles
             MinimizeBox = false;
             Name = "Config";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "配置选择位置（作者：zgcwkj）";
+            Text = "配置选择位置（zgcwkj，免费禁止售卖）";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
