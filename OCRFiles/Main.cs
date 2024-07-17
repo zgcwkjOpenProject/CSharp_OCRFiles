@@ -1,4 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using Windows.Graphics.Imaging;
 using Windows.Media.Ocr;
 using Windows.Storage;
@@ -7,7 +13,7 @@ namespace OCRFiles
 {
     public partial class Main : Form
     {
-        public List<Point> clickPositions { get; set; } = [];
+        public List<Point> clickPositions { get; set; } = new List<Point>();
 
         public Main()
         {
@@ -96,7 +102,7 @@ namespace OCRFiles
                     {
                         //var target = new Bitmap(cropRect.Width, cropRect.Height);
                         var target = new Bitmap(cropRect.Width + 100, cropRect.Height + 100);//增加宽高，不然识别不出来
-                        using var g = Graphics.FromImage(target);
+                        using (var g = Graphics.FromImage(target))
                         {
                             //绘制白色背景
                             g.Clear(Color.White);
@@ -116,7 +122,7 @@ namespace OCRFiles
                     {
                         fileNewName = ocrResult;
                         if (string.IsNullOrEmpty(fileNewName)) continue;
-                        if (fileNewName.Length > 20) fileNewName = fileNewName[..20];
+                        if (fileNewName.Length > 20) fileNewName = fileNewName.Substring(0, 20);
                         item.Cells[1].Value = CleanFileName($"{fileNewName}{extension}");
                     }
                 }
@@ -213,30 +219,33 @@ namespace OCRFiles
             var result = string.Empty;
             var path = Path.GetFullPath(imagePath);
             var storageFile = await StorageFile.GetFileFromPathAsync(path);
-            using var randomAccessStream = await storageFile.OpenReadAsync();
-            //
-            var decoder = await BitmapDecoder.CreateAsync(randomAccessStream);
-            using var softwareBitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
-            var space = language.Contains("zh") ? "" : " ";
-            var lang = new Windows.Globalization.Language(language);
-            if (OcrEngine.IsLanguageSupported(lang))
+            using (var randomAccessStream = await storageFile.OpenReadAsync())
             {
-                var engine = OcrEngine.TryCreateFromLanguage(lang);
-                if (engine != null)
+                var decoder = await BitmapDecoder.CreateAsync(randomAccessStream);
+                using (var softwareBitmap = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied))
                 {
-                    var ocrResult = await engine.RecognizeAsync(softwareBitmap);
-                    foreach (var tempLine in ocrResult.Lines)
+                    var space = language.Contains("zh") ? "" : " ";
+                    var lang = new Windows.Globalization.Language(language);
+                    if (OcrEngine.IsLanguageSupported(lang))
                     {
-                        var line = "";
-                        foreach (var word in tempLine.Words)
+                        var engine = OcrEngine.TryCreateFromLanguage(lang);
+                        if (engine != null)
                         {
-                            line += word.Text + space;
+                            var ocrResult = await engine.RecognizeAsync(softwareBitmap);
+                            foreach (var tempLine in ocrResult.Lines)
+                            {
+                                var line = "";
+                                foreach (var word in tempLine.Words)
+                                {
+                                    line += word.Text + space;
+                                }
+                                result += line + Environment.NewLine;
+                            }
                         }
-                        result += line + Environment.NewLine;
-                    }
+                    };
+                    return result;
                 }
-            };
-            return result;
+            }
         }
     }
 }

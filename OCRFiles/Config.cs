@@ -1,4 +1,9 @@
-﻿namespace OCRFiles
+﻿using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace OCRFiles
 {
     public partial class Config : Form
     {

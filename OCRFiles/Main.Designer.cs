@@ -1,4 +1,7 @@
-﻿namespace OCRFiles
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace OCRFiles
 {
     partial class Main
     {
@@ -28,134 +31,136 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            dataGridView1 = new DataGridView();
-            FileName = new DataGridViewTextBoxColumn();
-            NewFileName = new DataGridViewTextBoxColumn();
-            NewTextContent = new DataGridViewTextBoxColumn();
-            FilePath = new DataGridViewTextBoxColumn();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            SuspendLayout();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.FileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewTextContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(9, 10);
-            button1.Margin = new Padding(2, 3, 2, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(88, 32);
-            button1.TabIndex = 0;
-            button1.Text = "选择文件";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            this.button1.Location = new System.Drawing.Point(10, 9);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 53);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "选择文件";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { FileName, NewFileName, NewTextContent, FilePath });
-            dataGridView1.Location = new Point(9, 48);
-            dataGridView1.Margin = new Padding(2, 3, 2, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(604, 325);
-            dataGridView1.TabIndex = 5;
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FileName,
+            this.NewFileName,
+            this.NewTextContent,
+            this.FilePath});
+            this.dataGridView1.Location = new System.Drawing.Point(10, 68);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(691, 352);
+            this.dataGridView1.TabIndex = 5;
             // 
             // FileName
             // 
-            FileName.HeaderText = "文件名";
-            FileName.MinimumWidth = 6;
-            FileName.Name = "FileName";
-            FileName.Width = 150;
+            this.FileName.HeaderText = "文件名";
+            this.FileName.MinimumWidth = 6;
+            this.FileName.Name = "FileName";
+            this.FileName.Width = 150;
             // 
             // NewFileName
             // 
-            NewFileName.HeaderText = "识别名称";
-            NewFileName.MinimumWidth = 6;
-            NewFileName.Name = "NewFileName";
-            NewFileName.Width = 150;
+            this.NewFileName.HeaderText = "识别名称";
+            this.NewFileName.MinimumWidth = 6;
+            this.NewFileName.Name = "NewFileName";
+            this.NewFileName.Width = 150;
             // 
             // NewTextContent
             // 
-            NewTextContent.HeaderText = "识别内容";
-            NewTextContent.MinimumWidth = 6;
-            NewTextContent.Name = "NewTextContent";
-            NewTextContent.Width = 300;
+            this.NewTextContent.HeaderText = "识别内容";
+            this.NewTextContent.MinimumWidth = 6;
+            this.NewTextContent.Name = "NewTextContent";
+            this.NewTextContent.Width = 300;
             // 
             // FilePath
             // 
-            FilePath.HeaderText = "文件路径";
-            FilePath.MinimumWidth = 6;
-            FilePath.Name = "FilePath";
-            FilePath.Width = 380;
+            this.FilePath.HeaderText = "文件路径";
+            this.FilePath.MinimumWidth = 6;
+            this.FilePath.Name = "FilePath";
+            this.FilePath.Width = 380;
             // 
             // button2
             // 
-            button2.Location = new Point(102, 10);
-            button2.Margin = new Padding(2, 3, 2, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(88, 32);
-            button2.TabIndex = 1;
-            button2.Text = "配置";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            this.button2.Location = new System.Drawing.Point(117, 9);
+            this.button2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(101, 53);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "配置";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            button3.Location = new Point(194, 10);
-            button3.Margin = new Padding(2, 3, 2, 3);
-            button3.Name = "button3";
-            button3.Size = new Size(88, 32);
-            button3.TabIndex = 2;
-            button3.Text = "识别";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            this.button3.Location = new System.Drawing.Point(222, 9);
+            this.button3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(101, 53);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "识别";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            button4.Location = new Point(287, 10);
-            button4.Margin = new Padding(2, 3, 2, 3);
-            button4.Name = "button4";
-            button4.Size = new Size(88, 32);
-            button4.TabIndex = 3;
-            button4.Text = "批量提取内容";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            this.button4.Location = new System.Drawing.Point(328, 9);
+            this.button4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(126, 53);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "批量提取内容";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
-            button5.Location = new Point(379, 10);
-            button5.Margin = new Padding(2, 3, 2, 3);
-            button5.Name = "button5";
-            button5.Size = new Size(88, 32);
-            button5.TabIndex = 4;
-            button5.Text = "批量重命名";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            this.button5.Location = new System.Drawing.Point(458, 9);
+            this.button5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(108, 53);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "批量重命名";
+            this.button5.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(622, 382);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(dataGridView1);
-            Controls.Add(button1);
-            Margin = new Padding(2, 3, 2, 3);
-            MinimumSize = new Size(622, 382);
-            Name = "Main";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "OCR 识别工具（zgcwkj，免费禁止售卖）";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(712, 428);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.MinimumSize = new System.Drawing.Size(730, 475);
+            this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "OCR 识别工具（zgcwkj，免费禁止售卖）";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
