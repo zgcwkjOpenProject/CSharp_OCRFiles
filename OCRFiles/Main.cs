@@ -97,25 +97,25 @@ namespace OCRFiles
                         Math.Abs(start.X - end.X),
                         Math.Abs(start.Y - end.Y)
                     );
-                    //截取图片区域
-                    if (bitmap.Width >= cropRect.Width && bitmap.Height >= cropRect.Height)
+                    //防止截取图片区域超出原图
+                    if (bitmap.Width < cropRect.Width) cropRect.Width = bitmap.Width;
+                    if (bitmap.Height < cropRect.Height) cropRect.Height = bitmap.Height;
+                    //增大识别区域
+                    //var target = new Bitmap(cropRect.Width, cropRect.Height);
+                    var target = new Bitmap(cropRect.Width + 100, cropRect.Height + 100);
+                    using (var g = Graphics.FromImage(target))
                     {
-                        //var target = new Bitmap(cropRect.Width, cropRect.Height);
-                        var target = new Bitmap(cropRect.Width + 100, cropRect.Height + 100);//增加宽高，不然识别不出来
-                        using (var g = Graphics.FromImage(target))
-                        {
-                            //绘制白色背景
-                            g.Clear(Color.White);
-                            //绘制原图
-                            g.DrawImage(bitmap,
-                                //new Rectangle(0, 0, target.Width, target.Height),
-                                new Rectangle(50, 50, cropRect.Width, cropRect.Height),//增加宽高，不然识别不出来
-                                cropRect,
-                                GraphicsUnit.Pixel);
-                        }
-                        //保存截取区域
-                        target.Save($"{newPath}/{fileName}", ImageFormat.Jpeg);
+                        //绘制白色背景
+                        g.Clear(Color.White);
+                        //绘制原图
+                        g.DrawImage(bitmap,
+                            //new Rectangle(0, 0, target.Width, target.Height),
+                            new Rectangle(50, 50, cropRect.Width, cropRect.Height),//绘制起始点
+                            cropRect,//绘制区域内容
+                            GraphicsUnit.Pixel);
                     }
+                    //保存截取区域
+                    target.Save($"{newPath}/{fileName}", ImageFormat.Jpeg);
                     //OCR识别
                     var ocrResult = await RecognizeAsync($"{newPath}/{fileName}");
                     if (!string.IsNullOrEmpty(ocrResult))
@@ -127,14 +127,39 @@ namespace OCRFiles
                     }
                 }
             }
-            //识别内容
-            foreach (DataGridViewRow item in dataGridView1.Rows)
+            //识别文件内容
+            if (1 == 1)
             {
-                var fileName = item.Cells[0].Value.ToString();
-                var fileNewName = item.Cells[1].Value.ToString();
-                var filePath = item.Cells[3].Value.ToString();
-                //OCR识别
-                item.Cells[2].Value = await RecognizeAsync(filePath);
+                foreach (DataGridViewRow item in dataGridView1.Rows)
+                {
+                    var fileName = item.Cells[0].Value.ToString();
+                    var fileNewName = item.Cells[1].Value.ToString();
+                    var filePath = item.Cells[3].Value.ToString();
+                    var path = Path.GetDirectoryName(filePath);
+                    var newPath = $"{path}/Temp";
+                    var extension = Path.GetExtension(fileName);
+                    if (fileNewName == "") fileNewName = fileName;
+                    if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
+                    //打开图片
+                    var imagebyte = File.ReadAllBytes(filePath);
+                    var bitmap = new Bitmap(new MemoryStream(imagebyte));
+                    //增大识别区域
+                    var target = new Bitmap(bitmap.Width + 100, bitmap.Height + 100);
+                    using (var g = Graphics.FromImage(target))
+                    {
+                        //绘制白色背景
+                        g.Clear(Color.White);
+                        //绘制原图
+                        g.DrawImage(bitmap,
+                            new Rectangle(50, 50, bitmap.Width, bitmap.Height),//绘制起始点
+                            new Rectangle(0, 0, bitmap.Width, bitmap.Height),//绘制区域内容
+                            GraphicsUnit.Pixel);
+                    }
+                    //保存截取区域
+                    target.Save($"{newPath}/{fileName}", ImageFormat.Jpeg);
+                    //OCR识别
+                    item.Cells[2].Value = await RecognizeAsync($"{newPath}/{fileName}");
+                }
             }
             //完成
             MessageBox.Show("识别完成");
